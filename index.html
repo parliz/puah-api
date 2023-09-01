@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Firebase Push Notifications Example</title>
+  <!-- <script src="/firebase-messaging-sw.js" defer></script> -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-messaging.js"></script>
+  <script>
+    // Инициализация Firebase
+    var firebaseConfig = {
+      // Ваш конфигурационный объект Firebase
+      // Здесь должны содержаться ваши ключи, токены и т.д.
+        apiKey: "AIzaSyDQuF0_5D_uNL9Cg5AOAktG_LIuTNEirUk",
+        authDomain: "push-api-f23f9.firebaseapp.com",
+        projectId: "push-api-f23f9",
+        storageBucket: "push-api-f23f9.appspot.com",
+        messagingSenderId: "386514831306",
+        appId: "1:386514831306:web:3bc7a921de80dd1a33b133",
+        measurementId: "G-51B86SQVYC"
+    };
+    firebase.initializeApp(firebaseConfig);
+
+    // Получение экземпляра объекта Messaging
+    const messaging = firebase.messaging();
+
+    // Запрос на получение разрешения на уведомления
+    messaging.requestPermission()
+      .then(function() {
+        console.log('Разрешение на уведомления получено.');
+        return messaging.getToken();
+      })
+      .then(function(token) {
+        console.log('Токен устройства:', token);
+        // Отправьте этот токен на сервер, чтобы использовать его для отправки уведомлений
+      })
+      .catch(function(error) {
+        console.log('Ошибка при получении разрешения на уведомления:', error);
+      });
+
+    // Обработка получения уведомления в активном окне
+    messaging.onMessage(function(payload) {
+      console.log('Получено уведомление в активном окне:', payload);
+      // Здесь вы можете обработать уведомление в пользовательском интерфейсе
+    });
+
+  </script>
+</head>
+<body>
+  <h1>Firebase Push Notifications Example</h1>
+  <!-- Ваш контент здесь -->
+</body>
+</html>
